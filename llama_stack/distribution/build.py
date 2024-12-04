@@ -33,6 +33,12 @@ SERVER_DEPENDENCIES = [
     "uvicorn",
 ]
 
+UI_SERVER_DEPENDENCIES = [
+    "streamlit",
+    "streamlit-option-menu",
+    "llama-stack-client",
+]
+
 
 class ImageType(Enum):
     docker = "docker"
@@ -105,6 +111,7 @@ def build_image(build_config: BuildConfig, build_file_path: Path):
         build_config.distribution_spec.providers
     )
     normal_deps += SERVER_DEPENDENCIES
+    normal_deps += UI_SERVER_DEPENDENCIES
 
     if build_config.image_type == ImageType.docker.value:
         script = pkg_resources.resource_filename(
